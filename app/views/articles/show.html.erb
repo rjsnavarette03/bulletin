@@ -1,0 +1,32 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @article %>
+<div>
+  Vote:
+  <span id='article-id' data=<%= @article.vote%>><%= @article.vote %></span>
+</div>
+
+<div>
+
+  <%= link_to "Back to articles", articles_path %>
+  <div class="btn btn-success" id="upvote">
+    Upvote
+  </div>
+  <%= link_to "Downvote", articles_path, class:"btn btn-secondary" %>
+  <script type="text/javascript">
+    $('#upvote').on('click', function() {
+      alert('voted')
+      var id = $('#article-id').attr('data');
+      $.ajax({
+        type: "POST",
+        url: "/articles/upvote",
+        data: { id:id },
+        success: function(data) {
+          $('#upvote').toggle();
+        },
+        error:(data) {}
+      });
+    });
+  </script>
+
+</div>
